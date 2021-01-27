@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
-    const TABLE_NAME = 'user';
+    const TABLE_NAME = 'users';
 
     const ATTR_ID              = 'id';
     const ATTR_NAME            = 'name';
@@ -40,7 +40,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone',
     ];
 
     protected $guarded = [
