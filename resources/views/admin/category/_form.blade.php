@@ -50,7 +50,7 @@
             <label>Выберите изображение</label>
             <input id="input-b1" name="img" type="file" class="file" data-browse-on-zone-click="true">
             <div>
-                <img src="{{old('img', $category->getImgUrl() ?? '')}}" width="400" alt="" data-id="input-b1">
+                <img src="{{old('img', isset($category) ? $category->getImgUrl() : '')}}" width="400" alt="" data-id="input-b1">
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
             <label>Выберите иконку</label>
             <input id="input-b2" name="icon" type="file" class="file" data-browse-on-zone-click="true">
             <div>
-                <img src="{{old('icon', $category->getIconUrl() ?? '')}}" width="50" alt="" data-id="input-b2">
+                <img src="{{old('icon', isset($category) ? $category->getIconUrl() : '')}}" width="50" alt="" data-id="input-b2">
             </div>
         </div>
     </div>
