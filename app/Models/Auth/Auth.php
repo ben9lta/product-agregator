@@ -27,7 +27,7 @@ class Auth extends User
             Hash::check($password, $user->password) &&
             SAuth::attempt([$loginType => $login, User::ATTR_PASSWORD => $password], $remember) ) {
 
-            return \auth()->user()->role === User::ROLE_ADMIN ? redirect('/') : redirect('/home');
+            return \auth()->user()->role === User::ROLE_ADMIN ? redirect('/admin') : redirect('/home');
         }
 
         $errors = new MessageBag(['password' => ['Неверный логин или пароль']]);
