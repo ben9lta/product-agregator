@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.index');
     Route::resource('categories', 'Admin\CategoryController');
+    Route::resource('stores', 'Admin\StoreController');
+    Route::resource('products', 'Admin\ProductController');
 });
 
 Auth::routes();

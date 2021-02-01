@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('admin_assets/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/icons.min.css')}}" rel="stylesheet">
     <!-- Main styles -->
     <link href="{{ asset('admin_assets/css/admin.css')}}" rel="stylesheet">
     <!-- Icon fonts-->

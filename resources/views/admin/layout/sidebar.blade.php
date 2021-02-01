@@ -1,6 +1,6 @@
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Dashboard">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('admin.index')}}">
             <i class="fa fa-dashboard"></i>
             <span class="nav-link-text">&nbsp;Доска</span>
         </a>
@@ -13,10 +13,24 @@
         </a>
     </li>
 
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Магазины">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseStores" data-parent="#Stores">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="nav-link-text">&nbsp;Магазины</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseStores">
+            <li>
+                <a href="{{route('stores.index')}}">Все</a>
+            </li>
+            <li>
+                <a href="{{route('stores.create')}}">Создать</a>
+            </li>
+        </ul>
+    </li>
 
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Категории">
         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCategories" data-parent="#Categories">
-            <i class="fa fa-book"></i>
+            <i class="fa fa-list"></i>
             <span class="nav-link-text">&nbsp;Категории</span>
         </a>
         <ul class="sidenav-second-level collapse" id="collapseCategories">
@@ -29,33 +43,18 @@
         </ul>
     </li>
 
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Еда">
-        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseFood" data-parent="#Food">
-            <i class="fa fa-cutlery" aria-hidden="true"></i>
-            <span class="nav-link-text">&nbsp;Блюда</span>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Продукты">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProduct" data-parent="#Products">
+            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            <span class="nav-link-text">&nbsp;Продукты</span>
         </a>
-        <ul class="sidenav-second-level collapse" id="collapseFood">
+        <ul class="sidenav-second-level collapse" id="collapseProduct">
             <li>
-                <a href="#">Все</a>
+                <a href="{{route('products.index')}}">Все</a>
             </li>
 
             <li>
-                <a href="#">Добавить</a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Категории">
-        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOption" data-parent="#Categories">
-            <i class="fa fa-book"></i>
-            <span class="nav-link-text">Опции</span>
-        </a>
-        <ul class="sidenav-second-level collapse" id="collapseOption">
-            <li>
-                <a href="#">Все</a>
-            </li>
-            <li>
-                <a href="#">Создать</a>
+                <a href="{{route('products.create')}}">Добавить</a>
             </li>
         </ul>
     </li>
