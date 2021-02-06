@@ -6,11 +6,29 @@
         </a>
     </li>
 
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Setting">
-        <a class="nav-link" href="#">
-            <i class="fa fa-stop" aria-hidden="true"></i>
-            <span class="nav-link-text">&nbsp;Настройки</span>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Parser">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseParser">
+            <i class="fa fa-cloud-download " aria-hidden="true"></i>
+            <span class="nav-link-text">&nbsp;Парсер</span>
         </a>
+        <ul class="sidenav-second-level collapse" id="collapseParser">
+            <li>
+                <a href="{{route('parsers.index')}}">Все</a>
+            </li>
+            <li>
+                <a href="{{route('parsers.settings')}}">Настройки</a>
+            </li>
+            <li>
+                <a href="javascript:;" onclick="children[0].submit();">Парсить
+                    <form action="{{route('parsers.parse.all')}}" method="post" hidden>
+                        @csrf
+                    </form>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('parsers.create')}}">Создать</a>
+            </li>
+        </ul>
     </li>
 
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Магазины">

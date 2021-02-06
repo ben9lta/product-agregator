@@ -15,7 +15,7 @@ class ProductRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'        => "Заполните название для категории",
+            'name.required'        => "Заполните название продукта",
             'img.mimes'            => "Неверный тип изображения: jpeg,png,jpg,gif",
             'img.max'              => "Максимальный размер изображения 2 Мб",
             'category_id.required' => 'Необходимо выбрать категорию',

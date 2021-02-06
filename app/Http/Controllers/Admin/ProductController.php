@@ -32,19 +32,19 @@ class ProductController extends Controller
     public function __construct(
         ProductService $service,
         ProductRepository $repository,
-        CategoryRepository $categoryRepositroy,
+        CategoryRepository $categoryRepository,
         StoreRepository $storeRepository
     )
     {
         $this->service            = $service;
         $this->repository         = $repository;
-        $this->categoryRepository = $categoryRepositroy;
+        $this->categoryRepository = $categoryRepository;
         $this->storeRepository    = $storeRepository;
     }
 
     public function index()
     {
-        $products = $this->repository->query()->orderBy('id')->paginate(15);
+        $products = $this->repository->query()->orderBy('id', 'desc')->paginate(15);
         return view('admin.product.index', ['products'   => $products]);
     }
 

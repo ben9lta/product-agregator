@@ -22,6 +22,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::resource('categories', 'Admin\CategoryController');
     Route::resource('stores', 'Admin\StoreController');
     Route::resource('products', 'Admin\ProductController');
+    Route::resource('parsers', 'Admin\ParserController');
+    Route::get('parsers/settings', 'Admin\ParserController@settings')->name('parsers.settings');
+    Route::post('parsers/parse/{id}', 'Admin\ParserController@parseOne')->name('parsers.parse.one');
+    Route::post('parsers/parse', 'Admin\ParserController@parseAll')->name('parsers.parse.all');
 });
 
 Auth::routes();

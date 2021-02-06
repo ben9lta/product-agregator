@@ -11,8 +11,8 @@
                             <i class="bi bi-people-fill text-danger float-left"></i>
                         </div>
                         <div class="media-body text-right">
-                            <h3>2</h3>
-                            <span>Пользователей</span>
+                            <h3>{{$users}}</h3>
+                            <span>Пользователи</span>
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
                             <i class="bi bi-bag-fill text-primary float-left"></i>
                         </div>
                         <div class="media-body text-right">
-                            <h3>278</h3>
-                            <span>Продуктов</span>
+                            <h3>{{$products}}</h3>
+                            <span>Продукты</span>
                         </div>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                             <i class="bi bi-card-checklist text-warning float-left"></i>
                         </div>
                         <div class="media-body text-right">
-                            <h3>156</h3>
-                            <span>Категорий</span>
+                            <h3>{{$categories}}</h3>
+                            <span>Категории</span>
                         </div>
                     </div>
                 </div>
@@ -59,8 +59,8 @@
                             <i class="bi bi-shop-window text-success float-left"></i>
                         </div>
                         <div class="media-body text-right">
-                            <h3>2</h3>
-                            <span>Магазинов</span>
+                            <h3>{{$stores}}</h3>
+                            <span>Магазины</span>
                         </div>
                     </div>
                 </div>

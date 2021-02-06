@@ -3,7 +3,7 @@
         {{$category->id}}
     </td>
     <td>
-        {!!$name!!} <b>{{ $category->name }}</b>
+        {!!$name!!} {{ $category->name }}
     </td>
     <td>
         <a href="{{route('categories.show', $category->id)}}"><i
