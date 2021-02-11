@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.home');
+});
+
+Route::group(['prefix' => 'catalog'], function () {
+    Route::get('/', 'CatalogController@index');
+    Route::get('/{page}', 'CatalogController@index');
+    Route::get('/category/{id}', 'CatalogController@byCategory');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
@@ -30,4 +36,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/cabinet', 'CabinetController@index')->name('cabinet');

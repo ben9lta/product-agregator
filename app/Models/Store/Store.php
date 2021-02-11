@@ -12,6 +12,9 @@ class Store extends Model
 
     const TABLE_NAME = 'stores';
 
+    const ATTR_ID    = self::TABLE_NAME . '.id';
+    const ATTR_NAME  = self::TABLE_NAME . '.name';
+
     protected $fillable = [
         'name',
         'location',

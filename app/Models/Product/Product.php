@@ -14,6 +14,11 @@ class Product extends Model
     use Sluggable;
 
     const TABLE_NAME = 'products';
+    const ATTR_ID       = self::TABLE_NAME . '.id';
+    const ATTR_NAME     = self::TABLE_NAME . '.name';
+    const ATTR_PRICE    = self::TABLE_NAME . '.price';
+    const ATTR_CATEGORY = self::TABLE_NAME . '.category_id';
+    const ATTR_STORE    = self::TABLE_NAME . '.store_id';
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE   = 1;
@@ -38,6 +43,10 @@ class Product extends Model
         ];
     }
 
+    protected $appends = [
+        'imageUrl'
+    ];
+
     public static function getStatusVariants()
     {
         return [
@@ -49,6 +58,11 @@ class Product extends Model
     public function getImgUrl()
     {
         return $this->img ? url('storage/' . $this->img) : asset('admin_assets/img/no_image.png');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->getImgUrl();
     }
 
     public function category()

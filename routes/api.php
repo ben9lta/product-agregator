@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/products', 'Api\V1\ProductController@index');
+Route::get('/categories/{category}/products', 'Api\V1\ProductController@getByCategory');
+Route::post('/filtering', 'Api\V1\ProductController@filteringProducts')->name('api.filtering');

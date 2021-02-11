@@ -26,19 +26,14 @@ class Category extends Model
     use SoftDeletes;
     use Sluggable;
 
-    const ATTR_ID          = 'id';
-    const ATTR_NAME        = 'name';
-    const ATTR_IMG         = 'img';
-    const ATTR_ICON        = 'icon';
-    const ATTR_DESCRIPTION = 'description';
-    const ATTR_SLUG        = 'slug';
-    const ATTR_ORDER       = 'order';
-    const ATTR_STATUS      = 'status';
-    const ATTR_PARENT_ID   = 'parent_id';
-    const ATTR_CREATED_AT  = 'created_at';
-    const ATTR_UPDATED_AT  = 'updated_at';
-
     const TABLE_NAME = 'categories';
+
+    const ATTR_ID          = self::TABLE_NAME . '.id';
+    const ATTR_NAME        = self::TABLE_NAME . '.name';
+    const ATTR_DESCRIPTION = self::TABLE_NAME . '.description';
+    const ATTR_ORDER       = self::TABLE_NAME . '.order';
+    const ATTR_STATUS      = self::TABLE_NAME . '.status';
+    const ATTR_PARENT_ID   = self::TABLE_NAME . '.parent_id';
 
     /**
      * Return the sluggable configuration array for this model.
