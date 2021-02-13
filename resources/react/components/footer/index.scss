@@ -1,0 +1,19 @@
+footer.sticky-footer {
+    height: 100%;
+    max-height: 270px;
+    display: flex;
+    margin-top: 30px;
+    padding: 10px 0;
+    background: #FAFAFA;
+}
+
+footer.sticky-footer .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+footer.sticky-footer ul {
+    padding: 0;
+}
+

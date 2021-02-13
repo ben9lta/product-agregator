@@ -21,7 +21,7 @@
                 <div class="row header_box version_2 d-flex detail__header-box">
                     <h2 class="col-md-4"><i class="fa fa-book"></i>Детали продукта</h2>
                     <ul class="col-md-8 detail-links">
-                        <li><a href="{{route('products.edit', $product->id)}}" class="btn badge-warning">Изменить</a></li>
+                        <li><a href="{{route('productReducer.edit', $product->id)}}" class="btn badge-warning">Изменить</a></li>
                         <a class="btn badge-danger" href="#" onclick="$('#remove-category').submit()">Удалить</a>
                         <form id="remove-store" method="post" action="{{route('products.destroy' , $product->id)}}" hidden>
                             {!! method_field('DELETE') !!}

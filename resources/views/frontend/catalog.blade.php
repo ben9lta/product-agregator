@@ -1,6 +1,6 @@
 <script>
     window.fetchProducts = (apiRequest = '', method = 'get', data = {}, filtering = false) => {
-        const productItems = $('.products .items .product__item');
+        const productItems = $('.productReducer .items .product__item');
         if(filtering && productItems) {
             productItems.remove();
         }
@@ -8,7 +8,7 @@
         let productsTitle = $('.products__title').text() || undefined;
         if(!apiRequest) {
             const page = window.location.search;
-            apiRequest = `/api/products${page}`;
+            apiRequest = `/api/productReducer${page}`;
             productsTitle = 'Продукты';
         }
 
@@ -23,14 +23,14 @@
             productsTitle = data.data[0].category.name;
         }
         document.querySelector('.products__title').textContent = productsTitle;
-        const productsBlock = $('.products .items')[0];
+        const productsBlock = $('.productReducer .items')[0];
 
         data.data.map((product) => {
             productsBlock.innerHTML += (renderProduct(product));
         });
 
         if(data.data.length > 0 && data.meta.last_page > 1) {
-            let productsFooter = document.querySelector('.products-footer');
+            let productsFooter = document.querySelector('.productReducer-footer');
             if(!productsFooter) {
                 productsFooter = document.createElement('div');
                 productsFooter.className = 'products-footer';
@@ -148,7 +148,7 @@
     let apiRequest;
     const category = {{isset($category) ? $category : 'undefined'}};
     if(category) {
-        apiRequest = `/api/categories/${category}/products`;
+        apiRequest = `/api/categories/${category}/productReducer`;
     }
 
     document.addEventListener('DOMContentLoaded', () => fetchProducts(apiRequest));

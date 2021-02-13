@@ -16,7 +16,7 @@
         "imangazaliev/didom": "^1.16",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "2.4"
+        "laravel/ui": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

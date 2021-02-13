@@ -14,14 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.home');
-});
+    return view('react');
+})->name('home');
 
-Route::group(['prefix' => 'catalog'], function () {
-    Route::get('/', 'CatalogController@index');
-    Route::get('/{page}', 'CatalogController@index');
-    Route::get('/category/{id}', 'CatalogController@byCategory');
-});
+// Auth routes
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Auth::routes();
+
+// Pages routes
+Route::get('/{url}', function ($url) {
+    return view('react');
+})->where(['url' => 'catalog|about']);
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.index');
@@ -34,6 +39,32 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::post('parsers/parse', 'Admin\ParserController@parseAll')->name('parsers.parse.all');
 });
 
-Auth::routes();
 
-Route::get('/cabinet', 'CabinetController@index')->name('cabinet');
+
+
+
+
+//Route::get('/', function () {
+//    return view('frontend.home');
+//})->name('home');
+
+//Route::group(['prefix' => 'catalog'], function () {
+//    Route::get('/', 'CatalogController@index');
+//    Route::get('/{page}', 'CatalogController@index');
+//    Route::get('/category/{id}', 'CatalogController@byCategory');
+//});
+//
+//Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
+//    Route::get('/', 'Admin\AdminController@index')->name('admin.index');
+//    Route::resource('categories', 'Admin\CategoryController');
+//    Route::resource('stores', 'Admin\StoreController');
+//    Route::resource('products', 'Admin\ProductController');
+//    Route::resource('parsers', 'Admin\ParserController');
+//    Route::get('parsers/settings', 'Admin\ParserController@settings')->name('parsers.settings');
+//    Route::post('parsers/parse/{id}', 'Admin\ParserController@parseOne')->name('parsers.parse.one');
+//    Route::post('parsers/parse', 'Admin\ParserController@parseAll')->name('parsers.parse.all');
+//});
+//
+//Auth::routes();
+//
+//Route::get('/cabinet', 'CabinetController@index')->name('cabinet');
