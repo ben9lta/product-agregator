@@ -290,13 +290,18 @@ header {
     margin-top: 40px;
     text-align: center;
 
-    button.show-more {
+    .show-more {
         border: none;
         outline: none;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
         background: $active-color;
         border-radius: 5px;
         color: #fff;
+        text-decoration: none;
         font-size: 18px;
         box-shadow: $box-shadow;
 

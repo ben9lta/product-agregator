@@ -1,15 +1,15 @@
 import React from 'react';
 import categoryService from "../../api/services/categoryService";
 import storeService from "../../api/services/storeService";
-import productService from "../../api/services/productService";
+import {categoryActions} from "./categoryActions";
+import {storeActions} from "./storeActions";
 
 export default {
     init: function () {
         return dispatch => {
             Promise.all([
-                categoryService.fetchAndSave(dispatch),
-                storeService.fetchAndSave(dispatch),
-                productService.fetchAndSave(dispatch),
+                categoryService.fetch().then(categories => dispatch(categoryActions.setCategories(categories))),
+                storeService.fetch().then(stores => dispatch(storeActions.setStores(stores))),
             ])
         }
 

@@ -3,8 +3,9 @@ import axios from "axios";
 import {categoryActions} from "../../store/actions";
 
 const categoryService = {
-    fetchAndSave: (dispatch) => {
-        axios.get('/api/categories').then((response) => {
+    fetch: async () => {
+        try {
+            const response = await axios.get('/api/categories');
             let categories = [];
             response.data.data.map(category => {
                 categories.push({
@@ -12,13 +13,11 @@ const categoryService = {
                     name: category.name,
                 })
             })
-            dispatch(categoryActions.setCategories(categories));
-
-        }).catch((error) => {
-            console.log(error)
-            dispatch(categoryActions.setCategories([]));
-        })
-
+            return categories;
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
     }
 
 }

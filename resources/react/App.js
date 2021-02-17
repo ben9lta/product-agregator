@@ -16,19 +16,12 @@ const App = ({init}) => {
         <React.Fragment>
             <Header />
             <div className="main">
-                <Switch>
-                    {/*<Route path="/menu" exact render={() => {*/}
-                    {/*    return <MenuPage />*/}
-                    {/*}}/>*/}
-
-                    <Route path="/catalog" exact render={() => {
-                        return <CatalogPage />
-                    }}/>
-
-                    <Route path="/" exact render={() => {
-                        return <MainPage />
-                    }}/>
-                </Switch>
+                <Router>
+                    <Switch>
+                        <Route path="/catalog" component={CatalogPage} />
+                        <Route path="/" exact component={MainPage} />
+                    </Switch>
+                </Router>
             </div>
             <Footer />
         </React.Fragment>

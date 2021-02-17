@@ -30,7 +30,7 @@
         });
 
         if(data.data.length > 0 && data.meta.last_page > 1) {
-            let productsFooter = document.querySelector('.productReducer-footer');
+            let productsFooter = document.querySelector('.product-footer');
             if(!productsFooter) {
                 productsFooter = document.createElement('div');
                 productsFooter.className = 'products-footer';

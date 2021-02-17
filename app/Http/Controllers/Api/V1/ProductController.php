@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        return ProductResource::collection($this->repository->with(['category', 'store'])->paginate(15));
+        return ProductResource::collection($this->repository->with(['category', 'store'])->orderByDesc('id')->paginate(15));
     }
 
     public function getByCategory($category)
@@ -89,11 +89,6 @@ class ProductController extends Controller
 
         $products = ProductResource::collection($products->paginate(15));
         return $products;
-//        return view('frontend.catalog', [
-//            'categories' => $this->categories,
-//            'stores'     => $this->stores,
-//            'products'   => $products
-//        ]);
     }
 
     public function show($id)

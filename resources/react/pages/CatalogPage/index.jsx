@@ -1,18 +1,81 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import Sidebar from "../../components/sidebar";
 import {SidebarTitle} from "../../components/sidebar/SidebarTitle";
-
 import './index.scss';
 import Products from "./products";
+import productService from "../../api/services/productService";
+import {categoryActions} from "../../store/actions";
+import {paginationActions} from "../../store/actions/paginationActions";
 
 const CatalogPage = ({categories, stores}) => {
+    const dispatch = useDispatch();
+    const [products, setProducts] = React.useState([]);
+    const [category, setCategory] = React.useState({});
+    const initialFilters = {
+        price_from: 0,
+        price_to: 10000,
+        category: undefined,
+    }
+    const [filterForm, setFilterForm] = React.useState(initialFilters);
+    const [isLoading, setIsLoading] = React.useState('false');
 
-    const handleSubmitFilteringForm = (e) => {
+    React.useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const handleSubmitFilterForm = (e) => {
         e.preventDefault();
-        console.log(e);
-        // const data = $(form).serialize();
-        // window.fetchProducts('/api/filtering', 'post', {data: data}, true);
+        fetchProducts();
+    }
+
+    const resetFilter = () => {
+        setFilterForm(initialFilters);
+        fetchProducts(initialFilters);
+        dispatch(categoryActions.setCurrentCategory('Продукты'));
+    }
+
+    const handleCategory = (e) => {
+        setFilterForm(initialFilters);
+        const category = {id: +e.target.dataset.id, name: e.target.textContent};
+        setCategory(category);
+        const currentCategory = category.id ? category.name : 'Продукты';
+        dispatch(categoryActions.setCurrentCategory(currentCategory));
+        fetchProducts({category: category.id});
+    }
+
+    const fetchProducts = (params = {}, url = null, refresh = true) => {
+        // setIsLoading(true);
+
+        if(Object.keys(params).length === 0) {
+            params = {...filterForm, category: category.id}
+        }
+
+        productService.fetch(params, url).then(data => {
+            dispatch(paginationActions.setPagination(data.pagination));
+            if (refresh) {
+                setProducts(data.response);
+            } else {
+                setProducts([...products, ...data.response]);
+            }
+
+        }).finally(() => {
+            setIsLoading(false);
+        });
+    }
+
+    const handleStores = (e) => {
+        setFilterForm({...filterForm, [e.target.name]: e.target.checked ? e.target.value : null});
+    }
+
+    const handlePrice = (e) => {
+        setFilterForm({...filterForm, [e.target.name]: e.target.value});
+    }
+
+    const handlePagination = (e) => {
+        e.preventDefault();
+        const url = e.target.href;
+        fetchProducts({}, url);
     }
 
     return (
@@ -20,20 +83,27 @@ const CatalogPage = ({categories, stores}) => {
             <Sidebar direction={'left'}>
                 <SidebarTitle title={'Каталог'} />
                 <ul>
+                    <li>
+                        <a href="#" onClick={isLoading ? null : handleCategory} data-id={null}>Все</a>
+                    </li>
                     {categories.length > 0 && categories.map((category) => {
                         return (
                             <li key={category.id}>
-                                <a href={`/catalog/category/${category.id}`} >{category.name}</a>
+                                <a href="#" onClick={isLoading ? null : handleCategory} data-id={category.id}>{category.name}</a>
                             </li>
                         );
                     })}
                 </ul>
             </Sidebar>
 
-            <Products />
+            <Products products={products}
+                      isLoading={isLoading}
+                      title={'Продукты'}
+                      handlePagination={handlePagination}
+                      fetchProducts={fetchProducts}/>
 
             <Sidebar direction={'right'}>
-                <form method="POST" action="/api/filtering" className="filtering-form" onSubmit={handleSubmitFilteringForm}>
+                <form method="get" className="filtering-form" onSubmit={isLoading ? null : handleSubmitFilterForm}>
 
                     <div className="shop-list">
                         <SidebarTitle title={'Магазины'} />
@@ -42,7 +112,7 @@ const CatalogPage = ({categories, stores}) => {
                                 return (
                                     <li key={store.id}>
                                         <input type="checkbox" id={`store${store.id}`} name={`stores[${store.id}]`}
-                                               value={store.name} />
+                                               checked={filterForm[`stores[${store.id}]`] ? true : false} value={store.id} onChange={handleStores} />
                                         <label htmlFor={`store${store.id}`}>{store.name}</label>
                                     </li>
                                 );
@@ -55,15 +125,20 @@ const CatalogPage = ({categories, stores}) => {
                         <ul className="filter-price">
                             <li>
                                 <label htmlFor="price_from">от</label>
-                                <input type="text" id="price_from" maxLength="7" name="price_from" placeholder="0" />
+                                <input type="text" id="price_from" value={filterForm.price_from}
+                                       onChange={handlePrice}
+                                       maxLength="7" name="price_from" placeholder="0" />
                                 <label htmlFor="price_to">до</label>
-                                <input type="text" id="price_to" maxLength="7" name="price_to" placeholder="1000" />
+                                <input type="text" id="price_to" value={filterForm.price_to}
+                                       onChange={handlePrice}
+                                       maxLength="7" name="price_to" placeholder="1000" />
                             </li>
                         </ul>
                     </div>
 
-                    <div className="d-flex justify-content-center mt-4">
-                        <input type="submit" className="submit-btn btn-active-color" value="Применить" />
+                    <div className="d-flex justify-content-center flex-column align-items-center mt-4">
+                        <input type="submit" className="submit-btn btn-active-color mb-2" value="Применить" />
+                        <input type="button" className="submit-btn btn-active-color" value="Очистить" onClick={isLoading ? null : resetFilter} />
                     </div>
                 </form>
             </Sidebar>

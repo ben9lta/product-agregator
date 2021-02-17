@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from "axios";
-import {productActions} from "../../store/actions";
 
 const productService = {
-    fetchAndSave: (dispatch) => {
-        axios.get('/api/products').then((response) => {
+    fetch: async (params = {}, url = '/api/products') => {
+        try {
+            if(!url) {
+                url = '/api/products';
+            }
+
+            const response = await axios.get(url , {params: params});
             let products = [];
             response.data.data.map(product => {
                 products.push({
@@ -17,13 +21,11 @@ const productService = {
                     category: product.category
                 })
             })
-            dispatch(productActions.setProducts(products));
-            // dispatch(paginationActions.setPagination(pagination));
-
-        }).catch((error) => {
-            console.log(error)
-            dispatch(productActions.setProducts([]));
-        })
+            return {isOk: true, response: products, pagination: {links: response.data.links, meta: response.data.meta}};
+        } catch (e) {
+            console.error(e);
+            return {isOk: false, response: [], pagination: {}};
+        }
 
     }
 

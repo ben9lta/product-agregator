@@ -1,10 +1,24 @@
 import React from 'react';
 import {connect} from "react-redux";
+import Pagination from "./pagination";
 
-const Products = ({products, title}) => {
+const Products = ({products, currentCategory, pagination, isLoading, handlePagination, fetchProducts}) => {
+
+    React.useEffect(() => {
+        setTimeout(() => {}, 100)
+    }, [])
+
+    const handleShowMore = (e) => {
+        e.preventDefault();
+        fetchProducts({}, e.target.href, false);
+    }
+
+    if(isLoading) return false;
+
     return (
         <div className="products">
-            <h2 className="products__title">{title || 'Продукты'}</h2>
+            <h2 className="products__title">{currentCategory}</h2>
+            <span className="products__title">{`Всего: ${pagination.meta.total}`}</span>
             <div className="items">
                 {products.length > 0 && products.map((product) => {
                     return (
@@ -43,6 +57,17 @@ const Products = ({products, title}) => {
                     );
                 })}
             </div>
+
+            <div className={'products-footer'} hidden={!pagination.meta}>
+                <a className={'show-more btn-active-color'}
+                        hidden={pagination.meta.current_page === pagination.meta.last_page}
+                        href={pagination.links.next}
+                        onClick={handleShowMore}
+                >
+                    Показать еще
+                </a>
+                <Pagination pagination={pagination} maxPages={5} handlePagination={handlePagination} />
+            </div>
         </div>
     )
 }
@@ -50,7 +75,8 @@ const Products = ({products, title}) => {
 
 const mapStateToProps = (state) => {
     return {
-        products: state.productReducer.products,
+        currentCategory: state.categoryReducer.currentCategory,
+        pagination: state.paginationReducer.pagination,
     }
 }
 
