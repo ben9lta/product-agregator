@@ -91,8 +91,7 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 30px;
-    min-height: calc(100vh - 50px - 270px - 30px);
+    min-height: calc(100vh - 50px - 270px);
 
     .products {
         width: 100%;
@@ -163,6 +162,7 @@ header {
 
         border: 1px solid $text-color-25;
         box-sizing: border-box;
+        background-color: #fff;
         box-shadow: $box-shadow;
         border-radius: 5px;
     }
@@ -235,6 +235,8 @@ header {
     //background-color: $background-color;
     box-shadow: $box-shadow;
     padding: 30px;
+    margin-top: 10px;
+    background: #f8f9fa;
 
     display: flex;
     flex-direction: column;
@@ -381,7 +383,6 @@ footer.sticky-footer {
     max-height: 270px;
     display: flex;
 
-    margin-top: 30px;
     padding: 10px 0;
     background: $background-color;
 

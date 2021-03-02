@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from "axios";
-import {categoryActions} from "../../store/actions";
 
 const categoryService = {
     fetch: async () => {

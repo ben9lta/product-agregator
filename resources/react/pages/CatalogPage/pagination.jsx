@@ -32,10 +32,12 @@ const Pagination = ({handlePagination, pagination: {meta, links}, maxPages = 0})
             }
         }
         setPages(array);
-    }, [handlePagination])
+    }, [links])
+
+    if(Object.keys(links).length === 0) return null;
 
     return (
-        <ul className={'pagination'} hidden={meta.last_page < 2}>
+        <ul className={'pagination'} hidden={meta.last_page <= 1}>
             <li className={'page-item'}><a className={`first-link ${classLeftPagination}`} onClick={handlePagination} href={links.first}><img src={'/icons/two-dir.svg'} /></a></li>
             <li className={'page-item'}><a className={`prev-link ${classLeftPagination}`} onClick={handlePagination} href={links.prev}><img src={'/icons/one-dir.svg'} /></a></li>
 

@@ -1,16 +1,22 @@
 import React from 'react';
 import './index.scss';
+import Cart from "../cart";
+import {connect} from "react-redux";
 
-const Header = () => {
+const Header = ({productsLength}) => {
+    React.useEffect(() => {
+    }, []);
+
     const refToggleUser = React.useRef(null);
+    const [cartOpened, setCartOpened] = React.useState(false);
 
     React.useEffect(() => {
-        $('.dropdown-toggle').dropdown()
+        $('.dropdown-toggle').dropdown();
     }, [])
 
-
-    const handleLogout = (e) => {
-        console.log('its ok');
+    const handleClickCart = (e) => {
+        e.preventDefault();
+        setCartOpened(!cartOpened);
     }
 
     return (
@@ -31,6 +37,19 @@ const Header = () => {
                 </ul>
 
                 <ul className="nav">
+                    <li className={'nav-item cart-item'}>
+                        <a href="#" onClick={handleClickCart}>
+                            <svg width="20" height="23" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1H4.125L7.25 15.6087H23.3214L26 5.56522H7.25" stroke="#2B2B2B" strokeOpacity="0.75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <ellipse cx="10.8215" cy="19.7174" rx="2.23214" ry="2.28261" stroke="#2B2B2B" strokeOpacity="0.75" strokeWidth="2"/>
+                                <ellipse cx="19.75" cy="19.7174" rx="2.23214" ry="2.28261" stroke="#2B2B2B" strokeOpacity="0.75" strokeWidth="2"/>
+                            </svg>
+                            <span className={'counter'} hidden={!productsLength}>{productsLength}</span>
+                        </a>
+                        <div className={cartOpened ? 'open cart-wrapper' : 'cart-wrapper'} >
+                            <Cart handleClickCart={handleClickCart}/>
+                        </div>
+                    </li>
                     {!user ? (
                         <>
                             <li className="nav-item">
@@ -62,4 +81,11 @@ const Header = () => {
     )
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        productsLength: state.cartReducer.cart.products.length,
+    }
+}
+
+export default connect(mapStateToProps, {})(Header);
+// export default Header;

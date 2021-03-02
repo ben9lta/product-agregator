@@ -6,7 +6,8 @@ import './index.scss';
 import Products from "./products";
 import productService from "../../api/services/productService";
 import {categoryActions} from "../../store/actions";
-import {paginationActions} from "../../store/actions/paginationActions";
+import {paginationActions} from "../../store/actions";
+import Toast from "../../components/cart/toast";
 
 const CatalogPage = ({categories, stores}) => {
     const dispatch = useDispatch();
@@ -19,23 +20,28 @@ const CatalogPage = ({categories, stores}) => {
     }
     const [filterForm, setFilterForm] = React.useState(initialFilters);
     const [isLoading, setIsLoading] = React.useState('false');
+    const checkboxRef = React.useRef([]);
 
     React.useEffect(() => {
         fetchProducts();
     }, []);
 
     const handleSubmitFilterForm = (e) => {
+        setIsLoading(true);
         e.preventDefault();
         fetchProducts();
     }
 
     const resetFilter = () => {
+        setIsLoading(true);
         setFilterForm(initialFilters);
+        checkboxRef.current.map(input => input.checked = false);
         fetchProducts(initialFilters);
         dispatch(categoryActions.setCurrentCategory('Продукты'));
     }
 
     const handleCategory = (e) => {
+        setIsLoading(true);
         setFilterForm(initialFilters);
         const category = {id: +e.target.dataset.id, name: e.target.textContent};
         setCategory(category);
@@ -45,8 +51,6 @@ const CatalogPage = ({categories, stores}) => {
     }
 
     const fetchProducts = (params = {}, url = null, refresh = true) => {
-        // setIsLoading(true);
-
         if(Object.keys(params).length === 0) {
             params = {...filterForm, category: category.id}
         }
@@ -74,12 +78,13 @@ const CatalogPage = ({categories, stores}) => {
 
     const handlePagination = (e) => {
         e.preventDefault();
-        const url = e.target.href;
+        const url = e.currentTarget.href;
         fetchProducts({}, url);
     }
 
     return (
         <React.Fragment>
+            <Toast />
             <Sidebar direction={'left'}>
                 <SidebarTitle title={'Каталог'} />
                 <ul>
@@ -112,7 +117,10 @@ const CatalogPage = ({categories, stores}) => {
                                 return (
                                     <li key={store.id}>
                                         <input type="checkbox" id={`store${store.id}`} name={`stores[${store.id}]`}
-                                               checked={filterForm[`stores[${store.id}]`] ? true : false} value={store.id} onChange={handleStores} />
+                                            ref={(e) => checkboxRef.current[store.id] = e}
+                                            defaultChecked={filterForm[`stores[${store.id}]`]}
+                                            value={store.id} onChange={handleStores}
+                                        />
                                         <label htmlFor={`store${store.id}`}>{store.name}</label>
                                     </li>
                                 );

@@ -99,7 +99,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="description">Описание</label>
-            <textarea rows="5" name="info" id="description" class="form-control"
+            <textarea rows="5" name="description" id="description" class="form-control"
                       placeholder="Описание">{{old('info', $product->description ?? '')}}</textarea>
         </div>
     </div>

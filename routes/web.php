@@ -42,8 +42,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
 
 
-
-
 //Route::get('/', function () {
 //    return view('frontend.home');
 //})->name('home');

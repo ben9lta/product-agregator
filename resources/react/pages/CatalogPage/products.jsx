@@ -1,19 +1,33 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import Pagination from "./pagination";
+import {cartActions, toastActions} from "../../store/actions";
+import cartService from "../../api/services/cartService";
+import {Spinner} from "../../components/spinner";
 
 const Products = ({products, currentCategory, pagination, isLoading, handlePagination, fetchProducts}) => {
-
-    React.useEffect(() => {
-        setTimeout(() => {}, 100)
-    }, [])
+    const dispatch = useDispatch();
+    const [isAdded, setIsAdded] = React.useState(true);
 
     const handleShowMore = (e) => {
         e.preventDefault();
         fetchProducts({}, e.target.href, false);
     }
 
-    if(isLoading) return false;
+    const addToCart = async (e) => {
+        setIsAdded(false);
+        e.preventDefault();
+        const product_id = e.currentTarget.dataset.id;
+        const {data: {message}} = await cartService.addToCart({product_id});
+        dispatch(toastActions.setMessage(''));
+        dispatch(toastActions.setMessage(message));
+
+        const {data} = await cartService.getCart();
+        dispatch(cartActions.setCart(data.data))
+        setIsAdded(true);
+    }
+
+    if(isLoading) return <Spinner style={{margin: 'auto'}} />;
 
     return (
         <div className="products">
@@ -36,7 +50,7 @@ const Products = ({products, currentCategory, pagination, isLoading, handlePagin
                                         <span className="price">{product.price} руб.</span>
                                     </div>
                                     <div className="btn-wrapper">
-                                        <div className="btn-cart">
+                                        <div className="btn-cart" onClick={isAdded ? addToCart : null} data-id={product.id}>
                                             <span>+</span>
                                             <svg width="22" height="18" viewBox="0 0 22 18" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">

@@ -2,6 +2,8 @@
 
 namespace App\Models\Product;
 
+use App\Models\Cart\Cart;
+use App\Models\CartProduct\CartProduct;
 use App\Models\Category\Category;
 use App\Models\Store\Store;
 use Illuminate\Database\Eloquent\Model;
@@ -38,13 +40,13 @@ class Product extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => ['name', 'category.name']
             ]
         ];
     }
 
     protected $appends = [
-        'imageUrl'
+        'imageUrl',
     ];
 
     public static function getStatusVariants()
@@ -74,6 +76,13 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class, 'store_id');
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, CartProduct::TABLE_NAME)
+            ->withPivot('quantity');
+    }
+
 
 
 }

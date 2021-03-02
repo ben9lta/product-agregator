@@ -20,7 +20,7 @@
                 <div class="header_box version_2 d-flex mb-4">
                     <h2 class="col-md-4"><i class="fa fa-fw fa-list"></i>Продукты</h2>
                     <div class="col-md-8 text-right">
-                        <a href="{{route('productReducer.create')}}" class="btn badge-primary">Добавить</a>
+                        <a href="{{route('products.create')}}" class="btn badge-primary">Добавить</a>
                     </div>
                 </div>
 
@@ -50,13 +50,13 @@
                                         {{$product->store->name}}
                                     </td>
                                     <td>
-                                        <a href="{{route('productReducer.show', $product->id)}}"><i
+                                        <a href="{{route('products.show', $product->id)}}"><i
                                                 class="fa fa-fw fa-eye"></i></a>
 
-                                        <a href="{{route('productReducer.edit', $product->id)}}"><i
+                                        <a href="{{route('products.edit', $product->id)}}"><i
                                                 class="fa fa-fw fa-edit"></i></a>
 
-                                        <form style="display: inline" action="{{ route('productReducer.destroy' , $product->id)}}" method="POST"
+                                        <form style="display: inline" action="{{ route('products.destroy' , $product->id)}}" method="POST"
                                               class="{{"form-" . $product->id}}">
                                             {!! method_field('DELETE') !!}
                                             @csrf

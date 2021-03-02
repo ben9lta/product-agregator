@@ -47,25 +47,22 @@ class ParserService
     public function save(ParserRequest $request, Parser $model)
     {
         try {
-            $optionsIsFound = ParserOptions::query()->find($model->option_id);
+            $options = ParserOptions::query()->find($model->option_id);
             $option = $request->post('option');
-            if($optionsIsFound)
-            {
+            if($options) {
                 $parserOptions = ParserOptions::query()->find($model->option_id);
                 $parserOptions->update($option);
-            }
-            else
-            {
+            } else {
                 $parserOptions = ParserOptions::query()->firstOrCreate($option);
             }
 
             $model->setAttribute('option_id', $parserOptions->id);
             $model->fill($request->all());
-            $parserIsFound = $model->query()->find([
+            $parser = $model->query()->find([
                 'url' => $request->post('url'),
             ]);
 
-            if( !$parserIsFound || !$model->save() ) {
+            if( !$parser || !$model->save() ) {
                 throw new \Exception("Запись не сохранена!");
             }
 
@@ -116,7 +113,12 @@ class ParserService
                 unset($attributes['img']);
             }
 
-            $product = Product::query()->firstOrNew($attributes);
+            $product = $this->productRepository->query()->firstOrNew([
+                'name' => $attributes['name'],
+                'category_id' => $attributes['category_id'],
+                'store_id' => $attributes['store_id']
+            ]);
+
             if(!$product->exists)
             {
                 if( isset($row['img']) )
@@ -125,9 +127,10 @@ class ParserService
                     $image = $this->imageUploader->uploadByUrl($img, Product::TABLE_NAME);
                     $product->img = $image;
                 }
-
-                $product->save();
             }
+
+            $product->fill($attributes);
+            $product->save();
         }
     }
 }

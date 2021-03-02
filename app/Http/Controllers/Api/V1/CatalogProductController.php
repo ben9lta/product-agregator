@@ -59,7 +59,7 @@ class CatalogProductController extends Controller
             $products->where(Product::ATTR_STORE, DB::raw(Product::ATTR_STORE));
         }
 
-        return JsonResource::collection($products->paginate(16)->appends($request->all()));
+        return JsonResource::collection($products->paginate(15)->appends($request->all()));
     }
 
 }

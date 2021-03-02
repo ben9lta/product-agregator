@@ -1,0 +1,53 @@
+img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.cart-wrapper .cart-block-item .item-delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.cart-wrapper .cart-block-item {
+    display: grid;
+    grid-template-columns: 20% 45% 12% 18%;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+
+    border: 1px solid #e4e4e4c7;
+    margin: 5px;
+    border-radius: 5px;
+
+    .image {
+        display: flex;
+        flex-direction: column;
+
+        img {
+            width: inherit;
+            max-height: 90px;
+            object-fit: contain;
+            height: inherit;
+        }
+    }
+}
+
+.toast {
+    position: fixed;
+    min-width: 300px;
+    right: 5%;
+    top: 5%;
+
+    background: #fff;
+    transition: z-index 0s, opacity 0.3s;
+    opacity: 0;
+    z-index: 0;
+
+    &.show {
+        z-index: 100;
+        transition: opacity 1s ease-out;
+    }
+}

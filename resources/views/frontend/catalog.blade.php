@@ -1,6 +1,6 @@
 <script>
     window.fetchProducts = (apiRequest = '', method = 'get', data = {}, filtering = false) => {
-        const productItems = $('.productReducer .items .product__item');
+        const productItems = $('.products .items .product__item');
         if(filtering && productItems) {
             productItems.remove();
         }
@@ -8,7 +8,7 @@
         let productsTitle = $('.products__title').text() || undefined;
         if(!apiRequest) {
             const page = window.location.search;
-            apiRequest = `/api/productReducer${page}`;
+            apiRequest = `/api/products${page}`;
             productsTitle = 'Продукты';
         }
 
@@ -23,7 +23,7 @@
             productsTitle = data.data[0].category.name;
         }
         document.querySelector('.products__title').textContent = productsTitle;
-        const productsBlock = $('.productReducer .items')[0];
+        const productsBlock = $('.products .items')[0];
 
         data.data.map((product) => {
             productsBlock.innerHTML += (renderProduct(product));
@@ -56,7 +56,6 @@
         const button = document.createElement('button');
         button.className = 'show-more btn-active-color';
         button.textContent = 'Показать еще';
-        console.log(data);
         button.dataset.next = data.links.next;
         button.dataset.pageNumber = pageNumber;
         button.onclick = loadMore;
@@ -148,7 +147,7 @@
     let apiRequest;
     const category = {{isset($category) ? $category : 'undefined'}};
     if(category) {
-        apiRequest = `/api/categories/${category}/productReducer`;
+        apiRequest = `/api/categories/${category}/products`;
     }
 
     document.addEventListener('DOMContentLoaded', () => fetchProducts(apiRequest));
