@@ -25,7 +25,7 @@ Auth::routes();
 // Pages routes
 Route::get('/{url}', function ($url) {
     return view('react');
-})->where(['url' => 'catalog|about']);
+})->where(['url' => 'catalog|about|order/success']);
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {

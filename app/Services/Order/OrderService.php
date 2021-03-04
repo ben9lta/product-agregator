@@ -64,7 +64,7 @@ class OrderService
             );
 
             $model->fill($attributesArray);
-            dd($model);
+
             if(!$model->save()) {
                 throw new \Exception("Запись не сохранена!");
             }

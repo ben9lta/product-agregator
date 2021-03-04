@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect, Link} from "react-rout
 import Footer from "./components/footer";
 import MainPage from "./pages/MainPage";
 import CatalogPage from "./pages/CatalogPage";
+import SuccessOrder from "./pages/OrderPage/success";
 
 const App = ({init}) => {
     React.useEffect(() => {
@@ -19,7 +20,13 @@ const App = ({init}) => {
                 <Router>
                     <Switch>
                         <Route path="/catalog" component={CatalogPage} />
+                        <Route path="/order/success" exact component={() => {
+                            return localStorage.getItem('orderSuccess')
+                            ? <SuccessOrder />
+                            : <Redirect to={'/'} />
+                        }} />
                         <Route path="/" exact component={MainPage} />
+                        <Route component={MainPage} />
                     </Switch>
                 </Router>
             </div>

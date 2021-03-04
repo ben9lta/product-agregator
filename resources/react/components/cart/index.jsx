@@ -34,8 +34,9 @@ const Cart = ({cart, handleClickCart}) => {
 
     const createOrder = (data = {}) => {
         return orderService.createOrder(data).then(() => {
+            localStorage.setItem('orderSuccess', 'success');
             localStorage.setItem('token', Math.random());
-            location.href = '/';
+            location.href = '/order/success';
         });
     }
 
