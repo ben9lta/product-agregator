@@ -67,9 +67,7 @@ const Header = ({productsLength}) => {
                                 {user.name}
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a className="nav-link form-inline dropdown-item" href="/logout"
-                                   onClick={handleLogout}>Выйти
-                                </a>
+                                <a className="nav-link form-inline dropdown-item" href="/logout">Выйти</a>
                             </div>
                         </li>
                     )}
