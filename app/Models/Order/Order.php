@@ -2,6 +2,8 @@
 
 namespace App\Models\Order;
 
+use App\Models\Cart\Cart;
+use App\Models\CartProduct\CartProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,8 +27,9 @@ class Order extends Model
     const ATTR_STATUS        = self::TABLE_NAME . '.status';
     const ATTR_DELIVERY_COST = self::TABLE_NAME . '.delivery_cost';
 
-    const STATUS_NO_PAID = 0;
-    const STATUS_PAID    = 1;
+    const STATUS_ENDED   = 0;
+    const STATUS_CHOSEN  = 1;
+    const STATUS_WAITING = 2;
 
     const TYPE_CASH   = 0;
     const TYPE_ONLINE = 1;
@@ -37,7 +40,7 @@ class Order extends Model
             'pay_type' => self::TYPE_CASH,
             'total' => 0,
             'delivery_cost' => 0,
-            'status' => 0,
+            'status' => self::STATUS_WAITING,
         ];
 
         parent::fill($defaultValues);
@@ -56,4 +59,9 @@ class Order extends Model
         'pay_type',
         'delivery_cost'
     ];
+
+    public function carts()
+    {
+        return $this->hasOne(Cart::class, 'id', 'cart_id');
+    }
 }

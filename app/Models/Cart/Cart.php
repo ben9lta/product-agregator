@@ -3,6 +3,7 @@
 namespace App\Models\Cart;
 
 use App\Models\CartProduct\CartProduct;
+use App\Models\Order\Order;
 use App\Models\Product\Product;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,5 +38,10 @@ class Cart extends Model
     {
         return $this->belongsToMany(Product::class, CartProduct::TABLE_NAME)
             ->withPivot('quantity');
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::TABLE_NAME, 'cart_id', 'id');
     }
 }

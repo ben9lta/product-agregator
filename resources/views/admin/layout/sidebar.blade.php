@@ -16,10 +16,7 @@
                 <a href="{{route('parsers.index')}}">Все</a>
             </li>
             <li>
-                <a href="{{route('parsers.settings')}}">Настройки</a>
-            </li>
-            <li>
-                <a href="javascript:;" onclick="children[0].submit();">Парсить
+                <a href="javascript:;" onclick="children[0].submit();">Парсить активные
                     <form action="{{route('parsers.parse.all')}}" method="post" hidden>
                         @csrf
                     </form>
@@ -84,10 +81,7 @@
         </a>
         <ul class="sidenav-second-level collapse" id="collapseOrder">
             <li>
-                <a href="#">Все</a>
-            </li>
-            <li>
-                <a href="#">Добавить</a>
+                <a href="{{route('orders.index')}}">Все</a>
             </li>
         </ul>
     </li>

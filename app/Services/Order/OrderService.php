@@ -93,4 +93,24 @@ class OrderService
         }
 
     }
+
+    public function active($id, Order $model)
+    {
+        try {
+            $order = $this->repository->find($id);
+            if($order->status !== $model::STATUS_WAITING) {
+                return false;
+            }
+
+            $order->status = $model::STATUS_CHOSEN;
+            if(!$order->save()) {
+                throw new \Exception("Произошла ошибка при изменении статуса заказа!");
+            }
+
+            return $order;
+
+        } catch (\Throwable $e) {
+            throw new \Exception($e);
+        }
+    }
 }

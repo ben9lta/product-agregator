@@ -3,6 +3,7 @@
 namespace App\Models\CartProduct;
 
 use App\Models\Cart\Cart;
+use App\Models\Order\Order;
 use App\Models\Product\Product;
 use Illuminate\Database\Eloquent\Model;
 
