@@ -50,11 +50,11 @@ class Category extends Model
     }
 
     protected $fillable = [
-        self::ATTR_NAME,
-        self::ATTR_DESCRIPTION,
-        self::ATTR_ORDER,
-        self::ATTR_STATUS,
-        self::ATTR_PARENT_ID,
+        'name',
+        'description',
+        'order',
+        'status',
+        'parent_id',
     ];
 
     public function getImgUrl()
