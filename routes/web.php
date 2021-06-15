@@ -27,6 +27,7 @@ Route::get('/{url}', function ($url) {
     return view('react');
 })->where(['url' => 'catalog|about|order/success']);
 
+Route::get('/privacy', 'Auth\RegisterController@privacy');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.index');
